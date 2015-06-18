@@ -1,0 +1,33 @@
+<HTML>
+<head>
+<meta http-equiv="content-type" content="charset=UTF-8"/>
+<script languague="JavaScript"> 
+ function mychange(object)
+ {
+//alert(object);
+object.style.color  = "yellow";
+/*
+var color = document.getElementById("mybutton").style.color;
+if(color == "red")
+{
+
+//  document.getElementById("div1").style.background="blue";
+  document.getElementById("mybutton").style.color = "blue";
+}
+else if(color == "blue")
+{
+//      document.getElementById("div1").style.background="red";
+   document.getElementById("mybutton").style.color = "red";
+}
+*/
+}
+</script>
+</head>
+<body> 
+<table id="div1" style="height:80px; width:800px; background:red">
+  <input type="hidden" value="red" id="colorType" />
+  <input type="button" id="mybutton" value="第一个按钮" onclick="mychange(this)" style="color:red" />
+</table>
+ 
+</body>
+</HTML>

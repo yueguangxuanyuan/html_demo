@@ -1,0 +1,135 @@
+第13章 理解动态网站
+我理解中的动态网站存在着两方面
+1网站的内容动态生成
+2页面存在交互性
+
+
+这两方面通过两种不同的技术实现
+1内容动态生成  这部分通过服务器端脚本语言或者其他服务器端技术实现
+2页面存在交互性  这部分通过客户端脚本语言或者客户端脚本语言与服务器端程序交互实现
+
+这里主要关注JavaScript 这种客户端脚本语言
+
+JS 通过事件响应机制来实现与用户的交互，他通过自身的语法，调用内置函数或者与服务器端交互
+来产生应答，另外通过DOM模型来获取或者修改文档的内容。
+
+第14章 初识JavaScript程序设计
+js的变量声明最好加上var
+如  var  a = 1；
+虽然不加也会通过，但是如果该变量在该能影响到它的域里有同名变量，不加var 就会变成赋值语句。如此时有一个全局变量a
+
+js中存在着对象的概念，对象拥有属性和方法
+js一共支持三类对象：
+      内置对象       Date  Array  String Math 等
+	  DOM对象        windows.alert 等
+	  自定义的对象
+	  
+注释风格与C语言保持一致
+变量的定义规则和普通高级语言差不多
+
+
+第15章 使用文档对象模型
+DOM模型 用一种树状结构维护页面中的对象，对象拥有属性和方法。
+        我们可以通过句点连接对象名称来构成URL来使用对象
+		
+Windows         document               links[]
+                                       anchors[]
+									   images[]
+									   forms[]     form elements
+									   DOM Level 1 Objects
+		        history
+				
+				location
+				
+
+document的一些常用属性
+        document.URL  获取当前文档的URL
+		document.title 当前页面的页面标题
+		document.referrer 在当前页面之前查看的页面的URL
+		document.lastModified 文档上一次修改的日期
+		document.cookie  读取或者设置文档的Cookie
+		document.images  返回当前文档的图像集合
+	    document.links/anchors返回对应的对象集合
+        document.write（）/document.writeln（）用来向文档中写内容
+
+history的一些常用属性
+        history.length  返回历史记录列表长度
+		history.go（数字）  正数代表在前进n次    负数代表后退n次
+		history.back（） 等价于后退一次
+		history.forward() 等价于前进一次
+		
+locaton的一些常用属性
+        location.href  用于获取当前页面的完整URL，或者是用来加载新的页面
+		location.protocol    协议的名称  如 http  https   ftp等
+		location.hostname    域名或者ip
+		location.port        端口号
+		location.pathname    程序上下文
+		location.search      查询的字符串   一般是?之后的内容
+		
+		location.host       域名加端口号
+		location.hash       锚名称
+		
+DOM结构把页面的每一个元素称为一个节点，节点之间存在着父子和兄弟关系
+        父子关系：一个元素直接包含另外一个元素  如  <ul><li></li></ul>  这里ul就是li的父节点
+		兄弟关系:拥有同一父节点的节点被称为兄弟节点  如 <body><p></p> < div></div></body> 这里的p和div 就是兄弟节点
+		
+节点的基本属性
+        nodeName：　　不等于name属性　　这里指的是ｐ／body这样的标签名
+		nodeType:     1表示正常的HTML标签  3表示文本节点  9表示文档节点
+		nodeValue：   获取文本节点的值，对于其他节点无效
+		innerHTML：   节点中HTML内容
+		
+节点的关系属性
+firstChild
+lastChild
+childNodes
+previousSibling
+nextSibling
+
+
+文档的方法
+    document.getElementById(id)  根据id查找对象
+	document.getElementByTagName(TagName)  返回一个拥有该TagName的节点数组
+	document.createTextNode（Text）创建包含制定文本的文本节点，并把它添加到文档中去
+	document.createElement(tag) 创建带制定标签的新HTML对象
+	
+节点方法
+  appendChild(newnode)   在现有子节点之后追加子节点
+  insertBefore(new，old)  在指定结点之前插入兄弟节点
+  replaceChild(new,old)
+  removeChild(old)
+  hasChildNodes()
+  cloneNode()   创建现有节点的一个副本
+  
+  
+第16章 使用JavaScript变量 字符串和数组
+String 变量可以通过直接赋值或者是new String（"。。"）的方式声明
+String的长度以只读属性存储在length中
+
+String 中常用的方法 toUpperCase()
+                    toLowerCase() 返回指定格式 并不修改原来的字符串内容
+				
+                    subString(n,m) 返回index 在[n，m)的字符构成的字符串
+					charAt(index)
+					indexof(subString) 查找字符串
+				    indexof(subString，startIndex)从指定index开始查找
+					split(parseString)    和java中用法一样
+	
+创建数组，可以通过 new Array(size)的形式创建一个指定长度的新数组
+         也可以通过 [value1，value2，value3，value4]来直接对数组复制来初始化数组
+		 
+test=new Array();
+test[0]=21
+test[5]=22
+先声明一个没有长度的数组然后通过复制改变数组长度也是可以的
+
+虽然不能通过改变length属性来改变数组的长度，但是我们可以通过给大index的数组单元复制来实现扩展数组的长度
+未被赋值的元素被定义成undefined
+
+Array内置了  sort函数，默认是根据ascll码排序，但它支持传入compare函数来实现自定义排序
+function numcompare(a,b){
+   return a-b；
+}
+var nums = [1,2,3,4]
+nums  = nums.sort(numcompare);
+

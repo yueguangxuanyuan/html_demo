@@ -1,0 +1,112 @@
+第10章 理解盒式模型和定位
+HTML中每一个元素都被视作一个盒子   由  内容 padding  border margin 组成
+     一个元素的宽 =  width +padding left　+padding right + border left + border right + margin left + margin right
+     同理元素的高
+	
+可以通过position属性控制绝对定位或是相对定位
+position : relative
+           absolute
+		   
+相对定位：元素从左上角开始从左向右堆叠，一行放不下了放入下一行
+         display 属性    block  元素被自动放在新的一行上    比如 p  div
+		                 inline 元素会与之前的元素在可能情况下放在同一行上，比如<span>
+		
+绝对定位：我们可以设定元素在页面上的精确位置
+         可以通过4个属性设定
+		 left
+		 right
+		 top
+		 bottom
+		 
+z-index:  把界面模型看做三维的，水平X轴，竖直Y轴，垂直屏幕的Z轴，z-index的值高的元素将显示在值低的上方
+
+第11章 使用CSS对列表 文本和导航进行更多的处理
+在对<ul> < li> </li> </ul>  这样的列表构成的列表调整样式的实践发现
+在没有任何定义的时候ul  会默认margin为16px，0px    padding：0px 0px 0px 40px
+而li默认是等宽的，高度可以不同，浏览器会分配一个默认值或者根据计算得出一个满足要求的最小盒子，默认padding：
+     0px  margin：0px 对li添加额外的样式，浏览器会更根据样式重新计算盒式模型中content的大小
+	 
+
+导航栏可以通过 <a>标签与<ul>列表标签与css联合来实现，很多开源的页面css框架也普遍支持这一点。
+
+
+第12章  创建固定布局或流体布局
+固定布局指的是在编写页面的时候以px等数值形式指定了元素的实际的宽度或者高度，这样的做法能实现所见即所得，创建页面的时候简单
+         但是页面在非指定分辨率下显示就会出现滚动条或者大片空白等影响到用户体验的情况。
+流体布局值得是在编写页面的时候以百分比的形式指定元素的大小，这样的好处是在不同分辨率下浏览器能根据相应情况进行调整，但是存在
+        一个严重的问题：在高分辨率下元素空白太多或者显示太大，低分辨率下元素的之间显得太拥挤
+		
+一种折中的方法便是将固定布局与流体布局结合起来
+demo：
+<html>
+  <head>
+    <title>Sample Layout</title>
+    <link href="layout.css" type="text/css" rel="stylesheet"/>
+  </head>
+  <body>
+    <div id="header">HEADER</div>
+	<div id="wrapper">
+	        
+	       <div id="content-area">content</div>	
+		   <div id="left-side">left </div>
+		   <div id="right-side">right</div>
+    </div>
+	
+	<div id="footer">footer</div>
+  </body>
+</html>
+
+body{
+ margin:0;
+ padding:0;	
+}
+
+#header{
+  float:left;
+  width:100%;
+  background-color:#7152F4;
+}
+
+#footer{
+  float:left;
+  width:100%;
+  background-color:#7152F4;
+}
+
+#wrapper{
+  float:left;
+  padding-left:200px;
+  padding-right:125px;
+  background-color:#9c9c9c;
+  overflow:hidden;
+}
+
+#wrapper div{
+   margin-bottom:-2000px;
+   padding-bottom:2000px;
+}
+
+#left-side{
+ position:relative;
+ float:left;
+ background-color:#52f471;
+ width:200px;
+ margin-left:-100%;
+ left:-200px;
+}
+
+
+#right-side{
+ position:relative;
+ float:left;
+ width:125px;
+ background-color:#52f471;
+ margin-left:-125px;
+ left:125px;
+}
+这里的左右两列需要一个固定大小实现，content部分是根据实际情况改变，这里通过padding空出左右两列的位置，然后
+通过负值的margin-left把元素向前拉到合适的位置，拉完之后位置可以通过相对定位来实现微调
+
+另外这里还通过margin-bottom 和padding-bottom来实现了对齐显示，两者相加为0，所以元素的大小本身并没有改变，但是
+原本高度比最高高度小的同行元素本身应该是被显示为wrapper的背景的地方会被调整成显示对应div背景，这样看起来就和
+对齐的效果一样。

@@ -1,0 +1,9 @@
+<script>
+   data = "<pre>{\"imageName\":\"1433679969337.jpg\"}</pre>";
+    alert(data.match(/<pre>(.+)<\/pre>/)[1]);
+	//alert(data);
+	//eval('('+data.match(/<pre>(.+)<\/pre>/)[1]+')');
+	var obj = JSON.parse((data.match(/<pre>(.+)<\/pre>/)[1]));
+    alert(obj.imageName);
+  // window.prompt("«Î ‰»Î“ªæ‰ª∞","233333");
+</script>

@@ -1,0 +1,27 @@
+<html>
+<head>
+	<script type="text/javascript">  
+    function PrintEmail(text) {  
+    //匹配的模式  
+    var reg = RegExp("([\\w-.]+)@([\\w-])+((\.[\\w-]{2,3}){1,2})", "g");  
+    var result; //保存结果    
+    var arr = reg.exec(text);
+    //循环输出结果
+    for(var i=0;i<arr.length;i++){
+      document.write(arr[i]+"<br>");
+    }
+    while ((result = reg.exec(text)) != null)  {  
+    document.write(result[0] + "<br/>" + result.index);  
+    document.write("<br/><br/>");  
+     }  
+	
+    }  
+       
+    var text = "张三 Zhang.San@163.com; 李四 Li_si@126.com；王五 WangWu@gmail.com.cn" ;  
+    PrintEmail(text);  
+    windows.onload=PrintEmail(text);
+	</script> 
+</head>
+<body>
+</body>
+</html>

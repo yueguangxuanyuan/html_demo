@@ -1,0 +1,24 @@
+ 
+<html> 
+<head> 
+<script> 
+
+function bbb(event){ 
+event = window.event || event; 
+var srcEle = event.target || event.srcElement; 
+alert(srcEle.value); 
+} 
+function ccc(cc){ 
+
+alert(cc.value); 
+} 
+
+</script> 
+</head> 
+<body> 
+
+<input type="text" value="用event方式" onblur="bbb()"/> 
+
+<input type="text" value="对象传递" onblur="ccc(this)"/> 
+</body> 
+</html> 

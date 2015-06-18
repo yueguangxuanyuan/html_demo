@@ -1,0 +1,232 @@
+第17章 使用JavaScript函数和对象
+函数的常见格式
+functon  functonname(param1,param2,..){
+   .....
+   (return value;)
+}
+定义形参的时候只需要确定名字，这是和其他强类型语言使用函数的区别之一
+
+
+自定义对象的方法有很多
+具体可以参考http://www.cnblogs.com/mizzle/archive/2011/07/06/2099342.html
+function Parent(){  
+  this.name="李小龙";  
+ this.age=32;  
+     
+};   
+Parent.prototype.lev=function(){  
+  
+   return this.name;  
+};;  
+  
+var  x =new  Parent();    
+alert(x.lev()); 
+使用this进行属性定义  使用prototype进行方法定义是一种相对较好的方法
+
+
+JS中存在一个with 关键字，demo如下
+with(lastname){
+   alert(length);
+   toUpperCase();
+}
+在with结构体中的语句，任何没有指定对象的属性或者方法都被默认为with指定对象所拥有的
+
+
+第18章 利用条件和循环控制流程
+if语句 与java的风格一致
+可以使用三元操作符   A?B:C
+
+switch  与java的风格一致   但是额外支持了String类型
+
+for  while  do-while 循环也与java一致
+可以使用for  in 循环打印对象属性
+for(i  in nevigator){
+  document.write("property :" + i);
+  document.writeln("value : " +nevigator[i] );
+} 
+
+第19章 响应事件
+常用的事件响应属性 onClick  onMouseDown  onMouseOver onLoad  onUnLoad 等
+我们可以很清楚的发现 都是由on加上对应事件的名称构成的
+我们通过在便签内的对应属性赋值 或者是在JS中定义来实现响应事件的定义
+使用JS来定义使得页面显得更加灵活
+
+在编写事件响应函数，我们可以把事件当做对象传递进去做处理
+<body onkeypress="getKey(event)">
+getKey(e){
+   if(!e){ e= windows.event;} //这个是针对IE做的特殊处理
+}
+
+IE中支持的event属性
+event.button      按下的鼠标  1代表左 2代表右
+event.ClientX     事件发生位置x坐标   以像素为单位
+event.ClientY     事件发生位置y坐标   以像素为单位
+event.altkey      事件发生期间是否按了alt
+event.ctrlkey     事件发生期间是否按了ctrl
+event.shiftkey
+event.keyCode     被按下键的键码   用Unicode表示
+event.srcElement  发生事件的元素
+
+非IE中event的属性
+event.modifiers   以一个整数的形式表示事件发生期间的修饰键
+event.pageX       事件在web页面上的的x坐标
+event.pageY
+event.which       键盘事件键值的unicode
+event.button      被按下的鼠标键  0代表左键   2代表右键
+event.target      发生事件的元素
+
+
+页面的事件响应是通过一个链的形式进行的，当链中的任何一个响应事件的返回值false的时候浏览器
+便会结束响应链的执行
+
+
+第20章 使用窗口和框架
+window 的常用属性
+    closed    窗口是否被关闭    当处理多个窗口的时候存在着意义（比如淘宝付款）
+	defaultstatus /status    修改状态行的信息  部分浏览器是默认禁止的，所以基本不要使用
+	frames[]  返回页面中框架组成的数组
+	name      
+	opener     指向打开窗口的一个引用
+	parent     指向包含框架的父窗口的引用
+	screen     存储关于窗口所在屏幕的信息
+	self       指向自己
+	top        使用框架时 指向顶层框架
+	
+	open(URL,name,List_of_Features) 打开一个窗口 并返回窗口对象
+	           e.g.   smallWin = window.open("","small","width=100,height=200,toolbar=0,status=0");
+    close()   用来关闭一个窗口
+	moveTo(x,y) 移动到指定位置
+	moveBy(offsetx,offsety)指定相对当前位置的偏移
+	resizeTo(width,height)  改变大小
+	resizeBy(offsetWidth,offsetHeight)
+	setTimeout(function,timecount) 指定时间延迟后执行
+	           e.g.  indent=window.setTimeout("alert('Time up!')",10000);
+	clearTimeout(timeoutobj)  清除定时器
+	           e.g.  window.clearTimeout(indent);
+	alert(message)   显示警告信息，在该脚本运行的时候  页面的其他活动会被终止
+	confirm(message) 显示确认信息   点击OK 返回true   点击Cancel  返回false
+	prompt(message,default)  显示输入提示，default显示默认值
+	
+框架是一种不被推荐使用的便签，如果需要详细了解可以去查看
+<frameset> <iframe> 标签的讲解
+
+第21章 使用不唐突的JavaScript
+1使用注释
+   这个可以帮助开发和维护人员 理解代码
+2渐进增强
+   指的是js能兼容一些老的浏览器的基础上为新的浏览器添加新特性。
+   
+之前提到过为事务增加监听的手段
+<button  onClick="handle()" />
+或者
+window.onload="startUp()";
+
+但是多个脚本同时为一个元素的一个事件增加监听的时候就会存在着覆盖问题
+此时我们可以使用监听器，为事务响应设立一个响应链来解决这个问题
+
+使用的方式
+obj= document.getElementById(ID);
+if(obj.addEventListener){
+   obj.addEventListener('click',clickme,false);//第三个表示需要处理多少次事件，一般赋值为false
+}else if(obj.attachEvent){
+   obj.attachEvent('onClick',clickme);//兼容IE
+}else{
+   obj.onClick=clickme;
+}
+这里注意事件的命名，一个需要加on  一个不要加on
+
+
+读取浏览器信息可以用到 nevigator对象
+nevigator对象的常用属性
+     appCodeNmae 浏览器的内部代码名称
+	 appName     浏览器的名称
+	 appVersion  使用的浏览器版本
+	 userAgent   用户代理的头部
+	 language    浏览器的语言
+	 platform    当前浏览器的计算机平台
+当然这个中间可能会存在一些问题，比如 IE4会伪装成Mozilla/4.0
+
+另外检查nevigator也会对新版本的浏览器不友好，所以有一种替代的办法，我们只需要检查我们用的特性的兼容
+性是否存在，比如  检查document.getElementById是否能用 来辅助我们之后的操作
+
+当然可能存在一些不支持JS的浏览器，如果存在这样的需求我们可以采取几种解决方案
+1使用 <noscript>标签来定义不支持的浏览器显示的情况
+2使用JS做一层重定向，这样对浏览器的兼容性会更好，特别是在上面方法失败的情况下
+
+第22章 使用第三方库
+这里就只列一些常用的库
+Prototype
+JQuery
+Script.aculo.us
+AJAX框架(这个不是库，用普通的JS代码可以实现)
+
+第24章 AJAX :使用远程脚本
+try{
+  //支持IE7与其他现代浏览器
+ var ajaxreq = new XMLHttpRequest();
+}catch(Error){
+  try{
+   //IE5/IE6
+   var ajaxreq = new ActiveXObject("Microsoft.XMLHTTP");
+ }catch(Error){
+   return false;
+ }
+}
+ajaxreq.open("GET"/"POST",filename);
+ajaxreq.onreadystatechange=ajaxResponse;//定义处理函数
+ajaxreq.send(null);  //如果是get 就是send null  否则是传递相应的参数
+
+function ajaxResponse(){
+   if(ajaxreq.readyState !=4) return ;
+   if(ajaxreq.status==200){
+      //做些操作
+   }
+   return false;
+}
+
+第26章  处理给予Web的表单
+<form name="" method="post"/"get" action=url>
+    //control 
+</form>
+
+form常用属性
+    action      处理请求的url
+	encoding    除非利用表单传送一个文件 否则不需要指定
+	length      表单中元素的个数，一般不需要指定
+	method      GET或者POST
+	target      显示表单处理结果的窗口，一般默认为主窗口
+	
+文本输入
+<input type="text" size="50" maxlength="100" name="username"/>
+
+<textarea cols="" rows=""> </textarea>
+
+focus()   设置字段获得焦点
+blur()    失去焦点
+select()   选取文本框中的文字
+
+对应存在时间 onFocus   onBlur   onChange（改变文本 并移出文本框） onselect（无法确定选取
+          了什么文本，用select方法无法触发）
+
+隐藏值 使得用户看不到，随着表单提交 传输到服务器
+<input type="hidden" value="sss" name="username"/>
+   
+复选框
+<input type="checkbox" name="choose" value="haha" checked="checked"/>haha
+<input type="checkbox" name="choose" value="hehe"/>hehe
+
+单选按钮
+<input type="radio" name="vote" value="yes" checked="checked"/>yes
+<input type="radio" name="vote" value="no"/>
+
+下拉选取列表
+<select  [size=""] name="">
+   <option value="aaa" selected="selected">aaaa</option>
+   <option value="bbb">bbb</option>
+</select>
+
+按钮
+<input type="submit" value="submit" />
+<input type="reset" value="reset" />
+
+希望在表单提交的时候验证可以使用 onSubmit  事件来处理

@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1/EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1.1.dtd">
+<html>
+<head>
+<title>play vedio</title>
+ <!-- Chang URLs to wherever Video.js files will be hosted -->
+  <link href="video-js.min.css" rel="stylesheet" type="text/css">
+  <!-- video.js must be in the <head> for older IEs to work. -->
+  <script src="video.js"></script>
+
+  <!-- Unless using the CDN hosted version, update the URL to the Flash SWF -->
+  <script>
+    videojs.options.flash.swf = "video-js.swf";
+  </script>
+</head>
+<body>
+<h1>Play Vedio</h1>
+
+
+
+<video id="my_video_1" class="" controls preload="auto" width="275" height="200" poster="1.jpg" data-setup="{}">  
+    <source src="./1.mp4" type='video/mp4'/>  
+</video>
+<video id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered"
+  controls preload="auto" width="640" height="264"
+  poster="1.jpg"
+  data-setup='{"example_option":true}'>
+  <source src="./1.mp4" type='video/mp4'/>  
+</video>
+</html>

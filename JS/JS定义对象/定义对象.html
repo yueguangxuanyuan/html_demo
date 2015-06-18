@@ -1,0 +1,12 @@
+<script>
+  function Test() { 
+    this.text = function() { 
+      alert("defined by this"); 
+    } 
+  } 
+  Test.prototype.test = function() { 
+      alert("defined by prototype"); 
+  }   
+  var _o = new Test(); 
+  _o.test();
+</script>

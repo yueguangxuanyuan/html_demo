@@ -1,0 +1,192 @@
+第2章 理解HTML与XHTML之间的关系
+用来验证html文件正确性的网站
+http://validator.w3.org/
+
+
+第3章 理解层叠样式表
+层叠样式表（CSS）可以用3种方式使用：
+1外部样式表
+<link rel="stylesheet" type="text/css" href="" />
+2内部样式表
+放在head中
+<style>
+...
+</style>
+3内联样式表
+作为标签的属性放在标签内
+e.g.    <p style="color:red"></p>
+
+
+
+在外部样式表和内部样式表中需要确定样式修饰的对象，这里面涉及到了选择符
+选择符分3种
+1标签选择符   
+直接写  如   p
+             body
+2类选择符
+用·.·修饰    比如   p.haha     选择的是<p class="haha"></p>这样的标签
+3 id选择符
+用·#·修饰    比如 #hehe    选择的是<p id="hehe"></p>这样的标签
+当然可以嵌套使用选择符来达到更精确的索引  不同的选择符用空格隔开   如   div  p .haha
+另外可以用·,· 分割多个选择符 让多者使用相同的样式   如 div,p{...}
+这里面还存在一个伪类的概念，用·:·分割，  如  a：link      a.HAHA：active      表明某个锚点标签在某个状态下的样式表
+
+
+在使用过程中，高层的样式会默认被子元素继承，比如对<div>设立的样式会被 该div中所有元素继承，但是如果同一
+元素被不同的样式修饰，最接近使用位置的样式表将覆盖其他的样式，同样，如果同一元素被不同样式表修饰，在作用
+效力方便   内联样式表>内部样式表>外部样式表
+
+第4章 理解JavaScript
+javascript   一种客户端脚本语言，用来改善网页的交互性
+可以通过3种方式使用javascript
+1使用外部js文件
+<script type="text/javascript" href="" > </script>
+2在<head>中 在<body>中或者文件尾使用
+<script type="text/javascript">
+...
+</script>
+这3种使用的区别在于相对于body脚本的位置，这与相对执行顺序有关，如果我们需要对body内的标签加以操作就必须
+等标签加载完再执行全局的javascript代码，这就要求javascript代码要晚于需要操作的标签脚本出现
+3在标签内使用
+一般都用作事件处理程序  如  <button onclick="alert('yes')"></button>
+
+第5章 处理字体 文本块和列表
+特殊字符不能直接在html文本中使用，必须使用相应的代码表示，这种代码一般以&开始并且以；结束
+如果< 应该用 &lt；来代替
+
+列表分3种
+1无序列表
+<ul>
+  <li></li>
+</ul>
+2有序列表
+<ol>
+  <li></li>
+</ol>
+3定义列表
+<dl>
+  <dt>
+    <dd></dd>
+  </dt>
+</dl>
+
+列表可以嵌套
+
+
+第6章 使用表格显示信息
+<table>
+  <tr>
+    <th></th>
+  </tr>
+  <tr>
+    <td></td>
+  </tr>
+</table>
+可以通过rowspan 和colspan属性来控制跨行或者跨列显示
+
+
+第7章 使用外部链接和内部链接
+<a> 标签  来源是anchor  意为锚点
+1链接资源
+<a href=""></a>
+连接的可以是任意资源，如果浏览器能显示 那么就跳转显示
+如果浏览器不能显示，就会弹出下载框
+在连接其他网站的时候 需要写全URL  特别是不能省略 http://这类的协议
+2当做锚点使用
+首先定义锚点
+<a id="haha"></a>
+定义跳转
+<a href="#haha"></a>
+点击跳转，页面转到已定义的锚点处为首行的显示状态
+当然可以结合1来实现跳转到某个页面的锚点 只要在url后加上#锚点id  就行了
+
+第8章 处理颜色 图像和多媒体
+可以定义图像映射   将图像的一部分定义超链接
+demo如下
+<html>
+<head>
+<title>test Map </title>
+</head>
+<body>
+<!-- 这里也可以把形状定义成多边形 -->
+<map name="helloMap" id="hellpMap">
+ <area shape="rect" coords="100,100,20,20" href="./1.jpg" alt="1.jpg" title="area1"/>
+ <area shape="circle" coords="120,120,20" href="./1.jpg" alt="2.jpg" title="area2"/>
+</map>
+
+<img src="./1.jpg" usemap="#helloMap" width="200" height="200"/>
+</body>
+
+另外这章提到了用  <object> <embed>这样的标签来包含多媒体  但是经过尝试兼容性并不理想  我后来尝试了vedio标签 显示很正常，另外加上了vedio.js和css 相较之下有了更好的优化
+demo如下
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1/EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1.1.dtd">
+<html>
+<head>
+<title>play vedio</title>
+ <!-- Chang URLs to wherever Video.js files will be hosted -->
+  <link href="video-js.min.css" rel="stylesheet" type="text/css">
+  <!-- video.js must be in the <head> for older IEs to work. -->
+  <script src="video.js"></script>
+
+  <!-- Unless using the CDN hosted version, update the URL to the Flash SWF -->
+  <script>
+    videojs.options.flash.swf = "video-js.swf";
+  </script>
+</head>
+<body>
+<h1>Play Vedio</h1>
+
+
+
+<video id="my_video_1" class="" controls preload="auto" width="275" height="200" poster="1.jpg" data-setup="{}">  
+    <source src="./1.mp4" type='video/mp4'/>  
+</video>
+<video id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered"
+  controls preload="auto" width="640" height="264"
+  poster="1.jpg"
+  data-setup='{"example_option":true}'>
+  <source src="./1.mp4" type='video/mp4'/>  
+</video>
+</html>
+
+第9章 处理边距 填充 对齐和浮动
+在HTML中每一个元素的显示的模型都为盒式模型
+元素外部为margin   边缘为border 内部为padding
+这3者都是独立于内容的，他们不影响元素内容区域的大小（width，height），但会影响元素最终的大小
+
+margin设置  可以通过 margin-top  margin-right margin-bottom  margin-left来分开设置属性
+也可以通过margin 来统一设置
+margin： 1个值           表明所有方向上都这样
+margin: 2个值            上下边距为第一个值   左右边距为第二个值
+margin：4个值            依次是上右下左，  也就是从上开始 顺时针一圈
+
+padding的使用方法和margin 差不多，但是在没有设置padding的时候会存在一个默认的padding，
+如果我们手动修改了padding 那么最后对象的大小可能发生改变
+
+
+元素的对齐使用 text-align  来水平对齐，  该属性可取  left right  center  justify
+ 垂直对齐使用vertical-align，
+ vertical-align取值     含义
+ top                    元素的顶部与当前行对齐
+ middle                 元素的中部与父元素的中部对齐
+ bottom                 元素的底部与当前行对齐
+ text-top               元素的顶部与父元素的顶部对齐
+ baseline               元素的基线与父元素的基线对齐
+ text-bottom            元素的底部与父元素的底部对齐
+ 
+ float属性：   取值left/right    周围的元素在float元素之间浮动
+              如果一行存在多个浮动元素   如果浮动元素不能在一行显示  将自动换到下一行
+
+clear属性与float属性相对   right 右边不能有浮动元素
+                           left 左边
+						   both 左右不能有
+						   none
+						   inherit
+
+overflow:当元素中包含的文本流可能会超过元素大小
+         hidden   不显示超出文本
+		 visible  自动扩展元素
+		 scroll   添加一个滚动条
+         
+

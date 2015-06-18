@@ -1,0 +1,73 @@
+<html>
+<head>
+
+<title>用户主页</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<script type="text/javascript">
+    function getCertainFunctionPage(targetAction){
+        var xmlhttp;
+	    if (window.XMLHttpRequest){
+	     // code for IE7+, Firefox, Chrome, Opera, Safari
+          xmlhttp=new XMLHttpRequest();
+        }else{
+        // code for IE6, IE5
+          xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+	    xmlhttp.onreadystatechange=function(){
+          if (xmlhttp.readyState==4 && xmlhttp.status==200){
+               document.getElementById("mainDiv").innerHTML=xmlhttp.responseText;
+             }
+        }
+        var memberid = document.getElementById("memberid").innerHTML;
+        xmlhttp.open("POST",targetAction,true);
+        xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8"); 
+	    xmlhttp.send("memberid="+memberid);
+    }
+</script>
+</head>
+
+<body>
+	<div class="container">
+		<header id="header"
+			style="background-color:  #dedef8;box-shadow: 
+         inset 1px -1px 1px #444, inset -1px 1px 1px #444;height:120px">
+		<h1>用户主页</h1>
+		<p class="text-right">
+			Hello
+		</p>
+		</header>
+		<div id="functionDiv" class="col-xs-2"
+			style="background-color: #dedef8;box-shadow: 
+         inset 1px -1px 1px #444, inset -1px 1px 1px #444;height:600px">
+			<ul class="nav nav-pills nav-stacked">
+				<li class="text-center" style="font-size:20px">功能列表</li>
+				<li><button type="button" class="btn btn-default btn-block" onclick="getCertainFunctionPage(MemberInfoAction.action)">会员基本信息</button>
+				</li>
+				<li><button type="button" class="btn btn-default btn-block">修改账号信息</button>
+				</li>
+				<li><button type="button" class="btn btn-default btn-block">会员卡充值</button>
+				</li>
+				<li><button type="button" class="btn btn-default btn-block">积分兑换</button>
+				</li>
+				<li><button type="button" class="btn btn-default btn-block">会员资格取消</button>
+				</li>
+				<li><button type="button" class="btn btn-default btn-block">购票</button>
+				</li>
+				<li><button type="button" class="btn btn-default btn-block">参加活动</button>
+				</li>
+				<li><button type="button" class="btn btn-default btn-block">登出</button>
+				</li>
+			</ul>
+		</div>
+
+		<div id="mainDiv" class="col-xs-10"
+			style="background-color: #dedef8;box-shadow: 
+         inset 1px -1px 1px #444, inset -1px 1px 1px #444;height:600px">
+			
+
+		</div>
+	</div>
+</body>
+</html>
